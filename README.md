@@ -7,7 +7,7 @@ Pre - local setup
 2. Port 3300 (app) and 33306 (DB) must be available locally. Otherwise you can modify `docker-compose.yml`file.
 
 Local setup 
-1. Clone repository
+1. Clone the repository
 2. Create the .env file. - `cp .env.example .env`
 3. Run `Docker-compose up` (add a `-d` for hide logs)
 4. While the container build, you can add entry in `hosts` file to update domain path.
@@ -23,8 +23,11 @@ If you want to connect external DB, change the DB credentials in `docker-compose
 ### Install without Docker
 
 1. Clone the repository
-2. Install WAMP or XAMPP web server and make vertual directories. (Dont need if you are using `www` or `htdocs` defalut directories.)
-3. After starting the server you can check on published URL. (127.0.0.1 or 127.0.0.1:8000)
+2. Install WAMP or XAMPP any other web server and make vertual hosts to the clone repo directory. (Dont need if you are using `www` or `htdocs` defalut directories).
+3. Run `npm install` to install node modules.
+4. After starting the server you can check on published URL. (127.0.0.1 or 127.0.0.1:8000)
+
+If you are using artisan server Run `php artisan serve` to start the laravel development server.
 
 # Run Vuejs App
 
