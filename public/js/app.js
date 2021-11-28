@@ -82071,7 +82071,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     path: '/profile',
     name: 'profile',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./views/Profile.vue */ "./resources/js/views/Profile.vue"));
+      return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./views/Profile.vue */ "./resources/js/views/Profile.vue"));
     }
   }],
   scrollBehavior: function scrollBehavior(to, from, savedPosition) {
@@ -82260,8 +82260,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/janiththenuwara/Projects/gapstars/gapstars/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/janiththenuwara/Projects/gapstars/gapstars/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/janiththenuwara/Projects/gapstars/gapstars/gapstars-tmpr/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/janiththenuwara/Projects/gapstars/gapstars/gapstars-tmpr/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
