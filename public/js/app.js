@@ -3323,6 +3323,7 @@ __webpack_require__.r(__webpack_exports__);
       this.defaultChart.chartData = {
         datasets: [{
           fill: false,
+          label: '# of Precentages',
           borderColor: _components_Charts_chart_config__WEBPACK_IMPORTED_MODULE_0__["chartColors"]["default"].primary,
           borderWidth: 2,
           borderDash: [],
@@ -64058,7 +64059,7 @@ var render = function() {
                 staticClass: "tile is-child",
                 attrs: {
                   type: "is-info",
-                  icon: "cart-outline",
+                  icon: "account-multiple",
                   number: 1,
                   label: "Unregisterd"
                 }
@@ -81277,6 +81278,7 @@ var chartOptionsMain = _objectSpread(_objectSpread({}, baseChartOptions), {}, {
   scales: {
     yAxes: [{
       barPercentage: 1.6,
+      label: '# of Points',
       gridLines: {
         drawBorder: false,
         color: 'rgba(29,140,248,0.0)',

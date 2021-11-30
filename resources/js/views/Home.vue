@@ -7,7 +7,7 @@
     <section class="section is-main-section">
       <tiles>
         <card-widget class="tile is-child" type="is-primary" icon="account-multiple"  :number="total"  label="Users"/>
-        <card-widget class="tile is-child" type="is-info" icon="cart-outline"  :number="1" label="Unregisterd"/>
+        <card-widget class="tile is-child" type="is-info" icon="account-multiple"  :number="1" label="Unregisterd"/>
       </tiles>
 
       <card-component v-if="this.$store.state.isAdmin" title="Performance" @header-icon-click="fillChartData" icon="finance" header-icon="reload">
@@ -88,6 +88,7 @@ export default {
         datasets: [
           {
             fill: false,
+            label: '# of Precentages',
             borderColor: chartConfig.chartColors.default.primary,
             borderWidth: 2,
             borderDash: [],

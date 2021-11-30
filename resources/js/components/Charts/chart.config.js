@@ -29,6 +29,7 @@ export let chartOptionsMain = {
   scales: {
     yAxes: [{
       barPercentage: 1.6,
+      label: '# of Points',
       gridLines: {
         drawBorder: false,
         color: 'rgba(29,140,248,0.0)',
@@ -36,7 +37,8 @@ export let chartOptionsMain = {
       },
       ticks: {
         padding: 20,
-        fontColor: '#9a9a9a'
+        fontColor: '#9a9a9a',
+        
       }
     }],
 

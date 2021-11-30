@@ -77,18 +77,18 @@ class UsersCSVDataController extends Controller
          
         if($val && $total){
 
-            $x = 0;
+            $precentage = 0;
             $totalCSVArray = [];
             $collection = collect($val);
  
-            while($x <= 100) {
+            while($precentage <= 100) {
                 $filtered = $collection->where('onboarding_perentage', '!=', '')->WhereNotNull('onboarding_perentage')
-                ->where('onboarding_perentage', '>=', $x);
+                ->where('onboarding_perentage', '>=', $precentage);
 
                 $totalcounts = ( count($filtered) / $total ) * 100;
                 
                 array_push($totalCSVArray, $totalcounts);
-                $x+=10; 
+                $precentage+=10; 
             }
             return $totalCSVArray;
 
