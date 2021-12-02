@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Collection;
+use Carbon\Carbon;
 
 class UsersCSVDataController extends Controller
 {
@@ -67,29 +68,45 @@ class UsersCSVDataController extends Controller
 
     }
 
-    protected function calculateChartValues($val, $total){
 
-        /**
+    /**
          * 
          *  Calculate users data from csv and return to home
          *  filter it from first week - remaining
-        */
+    */
+    protected function calculateChartValues($val, $total){
+
          
         if($val && $total){
 
-            $precentage = 0;
             $totalCSVArray = [];
+            $totalCSVArraysec = [];
             $collection = collect($val);
- 
-            while($precentage <= 100) {
-                $filtered = $collection->where('onboarding_perentage', '!=', '')->WhereNotNull('onboarding_perentage')
-                ->where('onboarding_perentage', '>=', $precentage);
 
-                $totalcounts = ( count($filtered) / $total ) * 100;
+            $timestart = $collection->sortBy('created_at')->pluck('created_at')->first();
+            $timeend = $collection->sortBy('created_at')->pluck('created_at')->last();
+            $date = Carbon::parse($timestart);
+
+            while($date <= Carbon::parse($timeend)){
                 
-                array_push($totalCSVArray, $totalcounts);
-                $precentage+=10; 
+                $filtered= $collection->whereBetween('created_at', [$date->toDateString(),$date->addDays(6)->toDateString()]);
+
+                 for($precentages=0;  $precentages <= 100; $precentages+=10 ){  
+                    $filtered = $filtered
+                    ->where('onboarding_perentage', '!=', '')
+                    ->WhereNotNull('onboarding_perentage')
+                    ->where('onboarding_perentage', '>=', $precentages);
+
+                    $totalcounts = ( count($filtered) / $total ) * 100;
+                    
+                    array_push($totalCSVArraysec, $totalcounts);
+                }
+                array_push($totalCSVArray, $totalCSVArraysec);
+                $totalCSVArraysec=[];
+                $date = $date->addDays(1);
+                              
             }
+
             return $totalCSVArray;
 
         }//end if

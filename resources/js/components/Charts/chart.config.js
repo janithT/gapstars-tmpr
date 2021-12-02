@@ -1,15 +1,16 @@
 export const chartColors = {
   default: {
-    primary: '#00D1B2',
-    info: '#209CEE',
-    danger: '#FF3860'
+    1: '#00D1B2',
+    2: '#209CEE',
+    3: '#FF3860',
+    4: '#000000'
   }
 }
 
 export const baseChartOptions = {
   maintainAspectRatio: false,
   legend: {
-    display: false
+    display: true
   },
   responsive: true
 }

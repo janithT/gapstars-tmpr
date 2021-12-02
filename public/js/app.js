@@ -3319,41 +3319,30 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     //attch csv data to the chart  
-    fillChartData: function fillChartData(data) {
+    fillChartData: function fillChartData(clients) {
       this.defaultChart.chartData = {
-        datasets: [{
+        datasets: [],
+        labels: ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100']
+      };
+      var dataarray = this.defaultChart.chartData;
+      clients.forEach(function (val, i) {
+        dataarray.datasets.push({
+          label: '# of Precentages :' + (i + 1) + 'week',
           fill: false,
-          label: '# of Precentages',
-          borderColor: _components_Charts_chart_config__WEBPACK_IMPORTED_MODULE_0__["chartColors"]["default"].primary,
+          borderColor: _components_Charts_chart_config__WEBPACK_IMPORTED_MODULE_0__["chartColors"]["default"][i + 1],
           borderWidth: 2,
           borderDash: [],
           borderDashOffset: 0.0,
-          pointBackgroundColor: _components_Charts_chart_config__WEBPACK_IMPORTED_MODULE_0__["chartColors"]["default"].primary,
+          pointBackgroundColor: _components_Charts_chart_config__WEBPACK_IMPORTED_MODULE_0__["chartColors"]["default"][i + 1],
           pointBorderColor: 'rgba(255,255,255,0)',
-          pointHoverBackgroundColor: _components_Charts_chart_config__WEBPACK_IMPORTED_MODULE_0__["chartColors"]["default"].primary,
+          pointHoverBackgroundColor: _components_Charts_chart_config__WEBPACK_IMPORTED_MODULE_0__["chartColors"]["default"][i + 1],
           pointBorderWidth: 0,
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 4,
-          data: data
-        } // {
-        //   fill: false,
-        //   borderColor: chartConfig.chartColors.default.info,
-        //   borderWidth: 2,
-        //   borderDash: [],
-        //   borderDashOffset: 0.0,
-        //   pointBackgroundColor: chartConfig.chartColors.default.info,
-        //   pointBorderColor: 'rgba(255,255,255,0)',
-        //   pointHoverBackgroundColor: chartConfig.chartColors.default.info,
-        //   pointBorderWidth: 20,
-        //   pointHoverRadius: 4,
-        //   pointHoverBorderWidth: 15,
-        //   pointRadius: 4,
-        //   data: data
-        // },
-        ],
-        labels: ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100']
-      };
+          data: val
+        });
+      });
     },
     //return csv data to the home page
     getUsercsvData: function getUsercsvData() {
@@ -64072,11 +64061,7 @@ var render = function() {
             ? _c(
                 "card-component",
                 {
-                  attrs: {
-                    title: "Performance",
-                    icon: "finance",
-                    "header-icon": "reload"
-                  },
+                  attrs: { title: "User Data", icon: "finance" },
                   on: { "header-icon-click": _vm.fillChartData }
                 },
                 [
@@ -81252,15 +81237,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var chartColors = {
   "default": {
-    primary: '#00D1B2',
-    info: '#209CEE',
-    danger: '#FF3860'
+    1: '#00D1B2',
+    2: '#209CEE',
+    3: '#FF3860',
+    4: '#000000'
   }
 };
 var baseChartOptions = {
   maintainAspectRatio: false,
   legend: {
-    display: false
+    display: true
   },
   responsive: true
 };

@@ -10,7 +10,7 @@
         <card-widget class="tile is-child" type="is-info" icon="account-multiple"  :number="1" label="Unregisterd"/>
       </tiles>
 
-      <card-component v-if="this.$store.state.isAdmin" title="Performance" @header-icon-click="fillChartData" icon="finance" header-icon="reload">
+      <card-component v-if="this.$store.state.isAdmin" title="User Data" @header-icon-click="fillChartData" icon="finance" >
         <div v-if="defaultChart.chartData" class="chart-area">
           <line-chart style="height: 100%"
                       ref="bigChart"
@@ -55,6 +55,7 @@ export default {
       defaultChart: {
         chartData: null,
         extraOptions: chartConfig.chartOptionsMain,
+       
       },
     }
   },
@@ -82,44 +83,35 @@ export default {
   methods: {
 
     //attch csv data to the chart  
-    fillChartData (data) {
-
+    fillChartData (clients) {
+    
       this.defaultChart.chartData = {
-        datasets: [
-          {
-            fill: false,
-            label: '# of Precentages',
-            borderColor: chartConfig.chartColors.default.primary,
-            borderWidth: 2,
-            borderDash: [],
-            borderDashOffset: 0.0,
-            pointBackgroundColor: chartConfig.chartColors.default.primary,
-            pointBorderColor: 'rgba(255,255,255,0)',
-            pointHoverBackgroundColor: chartConfig.chartColors.default.primary,
-            pointBorderWidth: 0,
-            pointHoverRadius: 4,
-            pointHoverBorderWidth: 15,
-            pointRadius: 4,
-            data: data
-          },
-          // {
-          //   fill: false,
-          //   borderColor: chartConfig.chartColors.default.info,
-          //   borderWidth: 2,
-          //   borderDash: [],
-          //   borderDashOffset: 0.0,
-          //   pointBackgroundColor: chartConfig.chartColors.default.info,
-          //   pointBorderColor: 'rgba(255,255,255,0)',
-          //   pointHoverBackgroundColor: chartConfig.chartColors.default.info,
-          //   pointBorderWidth: 20,
-          //   pointHoverRadius: 4,
-          //   pointHoverBorderWidth: 15,
-          //   pointRadius: 4,
-          //   data: data
-          // },
-        ],
-        labels: ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100']
+
+         datasets: [],
+         labels: ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100']
+
       }
+      var dataarray = this.defaultChart.chartData;
+            clients.forEach(function (val, i) {
+            
+              dataarray.datasets.push({
+                  label: '# of Precentages :' + (i+1) + 'week',
+                  fill: false,
+                  borderColor: chartConfig.chartColors.default[i+1],
+                  borderWidth: 2,
+                  borderDash: [],
+                  borderDashOffset: 0.0,
+                  pointBackgroundColor: chartConfig.chartColors.default[i+1],
+                  pointBorderColor: 'rgba(255,255,255,0)',
+                  pointHoverBackgroundColor: chartConfig.chartColors.default[i+1],
+                  pointBorderWidth: 0,
+                  pointHoverRadius: 4,
+                  pointHoverBorderWidth: 15,
+                  pointRadius: 4,
+                  data: val
+              });
+            });
+
     },
 
     //return csv data to the home page
@@ -135,7 +127,9 @@ export default {
             this.clients = r.data.totalUserPercentages
             this.total = r.data.total_users
             // load line chart with csv data
+            
             this.fillChartData(this.clients)
+            
           }
 
         })
