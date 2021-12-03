@@ -78,31 +78,29 @@ class UsersCSVDataController extends Controller
 
          
         if($val && $total){
-
+            //initialize array and variables
             $totalCSVArray = [];
-            $totalCSVArraysec = [];
+            $weekly_array = [];
             $collection = collect($val);
 
-            $timestart = $collection->sortBy('created_at')->pluck('created_at')->first();
-            $timeend = $collection->sortBy('created_at')->pluck('created_at')->last();
-            $date = Carbon::parse($timestart);
+            $date_start = $collection->sortBy('created_at')->pluck('created_at')->first();
+            $date_end = $collection->sortBy('created_at')->pluck('created_at')->last();
+            $date = Carbon::parse($date_start);
 
-            while($date <= Carbon::parse($timeend)){
+            while($date <= Carbon::parse($date_end)){
                 
-                $filtered= $collection->whereBetween('created_at', [$date->toDateString(),$date->addDays(6)->toDateString()]);
+                $weekly_data= $collection->whereBetween('created_at', [$date->toDateString(),$date->addDays(6)->toDateString()]);
 
                  for($precentages=0;  $precentages <= 100; $precentages+=10 ){  
-                    $filtered = $filtered
-                    ->where('onboarding_perentage', '!=', '')
-                    ->WhereNotNull('onboarding_perentage')
-                    ->where('onboarding_perentage', '>=', $precentages);
+                    $weekly_precentages = $weekly_data->where('onboarding_perentage', '!=', '')
+                    ->WhereNotNull('onboarding_perentage')->where('onboarding_perentage', '>=', $precentages);
 
-                    $totalcounts = ( count($filtered) / $total ) * 100;
-                    
-                    array_push($totalCSVArraysec, $totalcounts);
+                    $totalcounts = ( count($weekly_precentages) / $total ) * 100;
+                    array_push($weekly_array, $totalcounts);
                 }
-                array_push($totalCSVArray, $totalCSVArraysec);
-                $totalCSVArraysec=[];
+                //push weekly array to chart data
+                array_push($totalCSVArray, $weekly_array);
+                $weekly_array=[];
                 $date = $date->addDays(1);
                               
             }

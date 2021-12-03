@@ -33,11 +33,10 @@ import Tiles from '@/components/Tiles'
 import CardWidget from '@/components/CardWidget'
 import CardComponent from '@/components/CardComponent'
 import LineChart from '@/components/Charts/LineChart'
-import ClientsTableSample from '@/components/ClientsTableSample'
+
 export default {
   name: 'home',
   components: {
-    ClientsTableSample,
     LineChart,
     CardComponent,
     CardWidget,
@@ -49,7 +48,7 @@ export default {
   data () {
     return {
       isLoading: false,
-      clients:null,
+      userPrecentageData:null,
       total:0,
 
       defaultChart: {
@@ -83,7 +82,7 @@ export default {
   methods: {
 
     //attch csv data to the chart  
-    fillChartData (clients) {
+    fillChartData (Precentage_data) {
     
       this.defaultChart.chartData = {
 
@@ -92,7 +91,7 @@ export default {
 
       }
       var dataarray = this.defaultChart.chartData;
-            clients.forEach(function (val, i) {
+            Precentage_data.forEach(function (val, i) {
             
               dataarray.datasets.push({
                   label: '# of Precentages :' + (i+1) + 'week',
@@ -124,12 +123,14 @@ export default {
           this.isLoading = false
           if (r.data && r.data.data) {
 
-            this.clients = r.data.totalUserPercentages
             this.total = r.data.total_users
-            // load line chart with csv data
+            if(r.data.totalUserPercentages){
+              this.userPrecentageData = r.data.totalUserPercentages
             
-            this.fillChartData(this.clients)
-            
+              // load line chart with csv data
+              this.fillChartData(this.userPrecentageData)
+            }
+      
           }
 
         })
