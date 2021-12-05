@@ -2988,11 +2988,37 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     titleStack: function titleStack() {
       return ['Admin', 'Dashboard'];
+    },
+    //return csv data to the home page
+    getUsercsvData: function getUsercsvData() {
+      var _this = this;
+
+      this.isLoading = true;
+      axios.get('/users_csv_data').then(function (r) {
+        _this.isLoading = false;
+
+        if (r && r.status) {
+          _this.total = r.data.total_users;
+
+          if (r.data.totalUserPercentages) {
+            _this.userPrecentageData = r.data.totalUserPercentages; // load line chart with csv data
+
+            _this.fillChartData(_this.userPrecentageData);
+          }
+        }
+      })["catch"](function (err) {
+        console.log(err);
+        _this.isLoading = false;
+
+        _this.$buefy.toast.open({
+          message: "Error: ".concat(err),
+          type: 'is-danger',
+          queue: false
+        });
+      });
     }
   },
   mounted: function mounted() {
-    // get cdv file data
-    this.getUsercsvData();
     this.$buefy.snackbar.open({
       message: 'Welcome back',
       queue: false
@@ -3022,34 +3048,6 @@ __webpack_require__.r(__webpack_exports__);
           pointHoverBorderWidth: 15,
           pointRadius: 4,
           data: val
-        });
-      });
-    },
-    //return csv data to the home page
-    getUsercsvData: function getUsercsvData() {
-      var _this = this;
-
-      this.isLoading = true;
-      axios.get('/users_csv_data').then(function (r) {
-        _this.isLoading = false;
-
-        if (r.data && r.data.data) {
-          _this.total = r.data.total_users;
-
-          if (r.data.totalUserPercentages) {
-            _this.userPrecentageData = r.data.totalUserPercentages; // load line chart with csv data
-
-            _this.fillChartData(_this.userPrecentageData);
-          }
-        }
-      })["catch"](function (err) {
-        console.log(err);
-        _this.isLoading = false;
-
-        _this.$buefy.toast.open({
-          message: "Error: ".concat(err),
-          type: 'is-danger',
-          queue: false
         });
       });
     }
@@ -63362,7 +63360,7 @@ var render = function() {
             ? _c(
                 "card-component",
                 {
-                  attrs: { title: "User Data", icon: "finance" },
+                  attrs: { title: _vm.getUsercsvData, icon: "finance" },
                   on: { "header-icon-click": _vm.fillChartData }
                 },
                 [

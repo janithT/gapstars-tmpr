@@ -63,7 +63,6 @@ class UsersCSVDataController extends Controller
             'status' => true,
             'totalUserPercentages' => $total_user_percentages,
             'total_users' => count($csv_to_json),
-            'data' => $csv_to_json
         ]);
 
     }
