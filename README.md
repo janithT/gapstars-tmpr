@@ -40,6 +40,10 @@ If you are using artisan server Run `php artisan serve` to start the laravel dev
 
 If you want, you can publish seperately too. (If you are using a CDN like aws cloudfront, copy public directory there).
 
+# For Swagger API Documentations
+
+You can visit `URL/api/documentation` for the API documentation and testing.
+
 
 
 
