@@ -20,7 +20,7 @@ class GapstarsAdmin
     {
         $user = Auth::user();
         if (!$user->isAdmin() ) {
-           return  response()->json(['error' => 'Unauthorized Access'],401);
+           return  response()->json(['error' => 'Unauthorized Access'],403);
         }
         return $next($request);
     }

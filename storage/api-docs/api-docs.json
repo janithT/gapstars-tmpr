@@ -1,0 +1,136 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Gapstart-tmpr API documentation",
+        "description": "Gapstart-tmpr API documentation",
+        "contact": {
+            "email": "info@example.com"
+        },
+        "version": "1.0.0"
+    },
+    "host": "127.0.0.1:8000",
+    "basePath": "",
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "paths": {
+        "/register": {
+            "post": {
+                "tags": [
+                    "tmpr - User Auth Operations"
+                ],
+                "summary": "tmpr user registration",
+                "operationId": "userregister",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "email",
+                        "in": "formData",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "phone",
+                        "in": "formData",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "password",
+                        "in": "formData",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "password_confirmation",
+                        "in": "formData",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "active",
+                        "in": "formData",
+                        "required": true,
+                        "type": "integer",
+                        "default": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized action."
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": [
+                    "tmpr - User Auth Operations"
+                ],
+                "summary": "tmpr user login",
+                "operationId": "userlogin",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "formData",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "password",
+                        "in": "formData",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized action."
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "302": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/users_csv_data": {
+            "get": {
+                "tags": [
+                    "tmpr - User CSV Data"
+                ],
+                "summary": "tmpr user return csv data",
+                "operationId": "csvdata",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized action."
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "302": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {}
+}

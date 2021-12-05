@@ -17,6 +17,10 @@
 
 Auth::routes(); 
 
+Route::group(["middleware" =>"web"], function(){
+
+    Route::get('api/documentation', '\L5Swagger\Http\Controllers\SwaggerController@api')->name('l5swagger.api');
+    
 Route::group(["middleware" =>"gapstars-auth"], function(){
         /* Route::get('/', 'HomeController@index')->name('home'); */
         Route::get('/home', 'HomeController@index')->name('home');
@@ -43,5 +47,6 @@ Route::group(["middleware" =>"gapstars-auth"], function(){
             Route::get('/users_csv_data', 'UsersCSVDataController@csvData');
 
          });
+});
 });
 

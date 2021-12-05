@@ -10,7 +10,7 @@
         <card-widget class="tile is-child" type="is-info" icon="account-multiple"  :number="1" label="Unregisterd"/>
       </tiles>
 
-      <card-component v-if="this.$store.state.isAdmin" title="User Data" @header-icon-click="fillChartData" icon="finance" >
+      <card-component :title="getUsercsvData" v-if="this.$store.state.isAdmin"  @header-icon-click="fillChartData" icon="finance" >
         <div v-if="defaultChart.chartData" class="chart-area">
           <line-chart style="height: 100%"
                       ref="bigChart"
@@ -64,14 +64,45 @@ export default {
         'Admin',
         'Dashboard'
       ]
+    },
+    //return csv data to the home page
+    getUsercsvData(){
+
+      this.isLoading = true;
+
+      axios
+        .get('/users_csv_data')
+        .then(r => {
+          this.isLoading = false
+          if (r && r.status) {
+
+            this.total = r.data.total_users
+            if(r.data.totalUserPercentages){
+              this.userPrecentageData = r.data.totalUserPercentages
+            
+              // load line chart with csv data
+              this.fillChartData(this.userPrecentageData)
+            }
+      
+          }
+
+        })
+        .catch( err => {
+          console.log(err)
+          this.isLoading = false
+          this.$buefy.toast.open({
+            
+            message: `Error: ${err}`,
+            type: 'is-danger',
+            queue: false
+          })
+          
+        })
+      
     }
   },
  
   mounted () {
-
-    // get cdv file data
-    this.getUsercsvData();
-
 
     this.$buefy.snackbar.open({
       message: 'Welcome back',
@@ -113,38 +144,7 @@ export default {
 
     },
 
-    //return csv data to the home page
-    getUsercsvData(){
-      this.isLoading = true;
-
-      axios
-        .get('/users_csv_data')
-        .then(r => {
-          this.isLoading = false
-          if (r.data && r.data.data) {
-
-            this.total = r.data.total_users
-            if(r.data.totalUserPercentages){
-              this.userPrecentageData = r.data.totalUserPercentages
-            
-              // load line chart with csv data
-              this.fillChartData(this.userPrecentageData)
-            }
-      
-          }
-
-        })
-        .catch( err => {
-          console.log(err)
-          this.isLoading = false
-          this.$buefy.toast.open({
-            
-            message: `Error: ${err}`,
-            type: 'is-danger',
-            queue: false
-          })
-        })
-    }
+    
     
   }
 }
