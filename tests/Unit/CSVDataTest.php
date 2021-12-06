@@ -2,24 +2,22 @@
 
 namespace Tests\Unit;
 
-use PHPUnit\Framework\TestCase;
-use App\Http\controllers\UsersCSVDataController;
-use Illuminate\Contracts\Routing\ResponseFactory;
-use App\User;
+use Tests\TestCase;
 
 class CSVDataTest extends TestCase
 {
-    
+   
     /**
-     * A basic unit test example.
+     * A basic unit on sample csv data
      *
-     * 
-     * @test
+     * @return void
      */
-    public function only_login_user_access()
+    public function test_csv_Example()
     {
-       
-        $response = $this->get('/user')->asserRedirect('/login');
-        //$this->assertTrue(true);
+
+        $this->withoutMiddleware();
+        $response = $this->get('/users_csv_data');
+        
+        $response->assertStatus($response->status(), 200);
     }
 }
