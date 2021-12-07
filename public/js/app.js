@@ -3013,11 +3013,10 @@ __webpack_require__.r(__webpack_exports__);
           }
         }
       })["catch"](function (err) {
-        console.log(err);
         _this.isLoading = false;
 
         _this.$buefy.toast.open({
-          message: "Error: ".concat(err),
+          message: "Error: ".concat(err.response.data.error),
           type: 'is-danger',
           queue: false
         });

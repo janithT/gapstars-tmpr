@@ -74,6 +74,7 @@ export default {
         .get('/users_csv_data')
         .then(r => {
           this.isLoading = false
+          
           if (r && r.status) {
 
             this.total = r.data.total_users
@@ -95,11 +96,10 @@ export default {
 
         })
         .catch( err => {
-          console.log(err)
           this.isLoading = false
           this.$buefy.toast.open({
             
-            message: `Error: ${err}`,
+            message: `Error: ${err.response.data.error}`,
             type: 'is-danger',
             queue: false
           })
