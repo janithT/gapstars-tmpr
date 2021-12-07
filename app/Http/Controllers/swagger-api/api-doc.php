@@ -98,6 +98,21 @@
 
 /**
  *
+ *      @SWG\Post(
+ *      path="/logout",
+ *      tags={"tmpr - User Auth Operations"},
+ *      operationId="userlogout",
+ *      summary="tmpr user logout",
+ *      @SWG\Response(response=200,description="successful operation"),
+ *      @SWG\Response(response=401,description="Unauthorized action."),
+ *      @SWG\Response(response=500,description="Server Error"),
+ *      @SWG\Response(response=302,description="Not Found"),
+ *  )
+ *
+*/
+
+/**
+ *
  *      @SWG\Get(
  *      path="/users_csv_data",
  *      tags={"tmpr - User CSV Data"},

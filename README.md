@@ -44,6 +44,16 @@ If you want, you can publish seperately too. (If you are using a CDN like aws cl
 
 You can visit `URL/api/documentation` for the API documentation and testing.
 
+# For PHP Unit testing 
+
+Find the test cases on test folder.
+
+for run test cases please use any of below commands.
+
+- vendor/bin/phpunit or
+- ./vendor/bin/phpunit or (for mac)
+- phpunit
+- or `php artisan test`
 
 
 
