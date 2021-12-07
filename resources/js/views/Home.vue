@@ -82,6 +82,13 @@ export default {
             
               // load line chart with csv data
               this.fillChartData(this.userPrecentageData)
+            }else{
+               this.$buefy.toast.open({
+            
+                message: `Warning: User weekly data precentages not found`,
+                type: 'is-warning',
+                queue: false
+              })
             }
       
           }
@@ -121,6 +128,7 @@ export default {
          labels: ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100']
 
       }
+      // populate the chart data
       var dataarray = this.defaultChart.chartData;
             Precentage_data.forEach(function (val, i) {
             

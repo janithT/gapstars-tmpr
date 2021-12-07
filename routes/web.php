@@ -19,7 +19,7 @@ Auth::routes();
 
 Route::group(["middleware" =>"web"], function(){
 
-    Route::get('api/documentation', '\L5Swagger\Http\Controllers\SwaggerController@api')->name('l5swagger.api');
+Route::get('api/documentation', '\L5Swagger\Http\Controllers\SwaggerController@api')->name('l5swagger.api');
     
 Route::group(["middleware" =>"gapstars-auth"], function(){
         /* Route::get('/', 'HomeController@index')->name('home'); */

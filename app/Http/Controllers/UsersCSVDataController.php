@@ -61,7 +61,7 @@ class UsersCSVDataController extends Controller
         //return json data
         return response()->json([
             'status' => true,
-            'totalUserPercentages' => $total_user_percentages,
+            'totalUserPercentages' => $total_user_percentages ? $total_user_percentages : false,
             'total_users' => count($csv_to_json),
         ]);
 

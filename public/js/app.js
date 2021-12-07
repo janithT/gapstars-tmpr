@@ -3004,6 +3004,12 @@ __webpack_require__.r(__webpack_exports__);
             _this.userPrecentageData = r.data.totalUserPercentages; // load line chart with csv data
 
             _this.fillChartData(_this.userPrecentageData);
+          } else {
+            _this.$buefy.toast.open({
+              message: "Warning: User weekly data precentages not found",
+              type: 'is-warning',
+              queue: false
+            });
           }
         }
       })["catch"](function (err) {
@@ -3030,7 +3036,8 @@ __webpack_require__.r(__webpack_exports__);
       this.defaultChart.chartData = {
         datasets: [],
         labels: ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100']
-      };
+      }; // populate the chart data
+
       var dataarray = this.defaultChart.chartData;
       Precentage_data.forEach(function (val, i) {
         dataarray.datasets.push({
