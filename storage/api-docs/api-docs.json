@@ -67,6 +67,15 @@
                     },
                     "401": {
                         "description": "Unauthorized action."
+                    },
+                    "403": {
+                        "description": "Forbidden to access."
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "302": {
+                        "description": "Found"
                     }
                 }
             }
@@ -99,11 +108,14 @@
                     "401": {
                         "description": "Unauthorized action."
                     },
+                    "403": {
+                        "description": "Forbidden to access."
+                    },
                     "500": {
                         "description": "Server Error"
                     },
                     "302": {
-                        "description": "Not Found"
+                        "description": "Found"
                     }
                 }
             }
@@ -122,16 +134,19 @@
                     "401": {
                         "description": "Unauthorized action."
                     },
+                    "403": {
+                        "description": "Forbidden to access."
+                    },
                     "500": {
                         "description": "Server Error"
                     },
                     "302": {
-                        "description": "Not Found"
+                        "description": "Found"
                     }
                 }
             }
         },
-        "/users_csv_data": {
+        "/csv/userdata": {
             "get": {
                 "tags": [
                     "tmpr - User CSV Data"
@@ -145,11 +160,14 @@
                     "401": {
                         "description": "Unauthorized action."
                     },
+                    "403": {
+                        "description": "Forbidden to access."
+                    },
                     "500": {
                         "description": "Server Error"
                     },
                     "302": {
-                        "description": "Not Found"
+                        "description": "Found"
                     }
                 }
             }

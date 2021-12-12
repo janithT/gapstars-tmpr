@@ -44,7 +44,10 @@ Route::group(["middleware" =>"gapstars-auth"], function(){
 
             //admin csv data routes
             
-            Route::get('/users_csv_data', 'UsersCSVDataController@csvData');
+            Route::prefix('/csv')->group(function () {
+                Route::get('/userdata', 'UsersCSVDataController@csvData');
+            });
+            
 
          });
 });

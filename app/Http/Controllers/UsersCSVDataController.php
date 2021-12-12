@@ -6,18 +6,21 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Collection;
 use Carbon\Carbon;
+use App\Repositories\CsvDataRepoInterface;
+
 
 class UsersCSVDataController extends Controller
 {
-    
+    private $csvDataRepository;
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(CsvDataRepoInterface $csvDataRepository)
     {
         $this->middleware('auth');
+        $this->csvDataRepository = $csvDataRepository;
     }
 
     /**
@@ -29,42 +32,25 @@ class UsersCSVDataController extends Controller
 
     public function csvData()
     {
-        //get and read csv file if exist
-
-        try{
-            if (!($csv_file = fopen('/Users/janiththenuwara/Downloads/export.csv', 'r'))) {
-                return;
-            }
-        }catch(\Exception $e){
-
-            return Response()->json([
-                "error" => $e->getMessage(),
-                "status" => "faild"
+        //get and read csv file if exist from repository
+        $csvData = $this->csvDataRepository->all();
+        
+        if(!$csvData->getData()->status){
+            return response()->json([
+                'status' => false,
+                'error' => $csvData->getData()->error,
             ],500);
-
+        }else{
+            $csvData=$csvData->getData()->data;
+            $total_user_percentages = $this->calculateChartValues($csvData, count($csvData));
+            //return json data
+            return response()->json([
+                'status' => true,
+                'totalUserPercentages' => $total_user_percentages ? $total_user_percentages : false,
+                'total_users' => count($csvData),
+            ]);
         }
-        
-        //read csv headers
-        $key = fgetcsv($csv_file,"1024",";");
-        
-        // parse csv rows into array
-        $csv_to_json = array();
-            while ($row = fgetcsv($csv_file,"1024",";")) {
-            $csv_to_json[] = array_combine($key, $row);
-        }
-        
-        // release file handle
-        fclose($csv_file);
-
-        $total_user_percentages = $this->calculateChartValues($csv_to_json, count($csv_to_json));
-
-        //return json data
-        return response()->json([
-            'status' => true,
-            'totalUserPercentages' => $total_user_percentages ? $total_user_percentages : false,
-            'total_users' => count($csv_to_json),
-        ]);
-
+ 
     }
 
 
@@ -75,8 +61,11 @@ class UsersCSVDataController extends Controller
     */
     protected function calculateChartValues($val, $total){
 
-         
-        if($val && $total){
+        // If parameters not exists
+        if(!$val && !$total){
+            return false;
+        }
+        else{
             //initialize array and variables
             $totalCSVArray = [];
             $weekly_array = [];
@@ -105,10 +94,6 @@ class UsersCSVDataController extends Controller
             }
 
             return $totalCSVArray;
-
-        }//end if
-        else{
-            return false;
         }
        
 

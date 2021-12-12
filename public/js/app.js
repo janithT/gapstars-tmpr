@@ -2994,7 +2994,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.isLoading = true;
-      axios.get('/users_csv_data').then(function (r) {
+      axios.get('/csv/userdata').then(function (r) {
         _this.isLoading = false;
 
         if (r && r.status) {

@@ -71,7 +71,7 @@ export default {
       this.isLoading = true;
 
       axios
-        .get('/users_csv_data')
+        .get('/csv/userdata')
         .then(r => {
           this.isLoading = false
           
